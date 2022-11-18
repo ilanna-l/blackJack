@@ -1,0 +1,74 @@
+var drawBitmoji = function (bitmojiX, bitmojiY, bitmojiH){
+        
+        var drawHead = function (bitmojiX, bitmojiY, bitmojiH){
+                    fill(209, 156, 113);
+                    arc(bitmojiX + bitmojiH / 80 * 49, bitmojiY + bitmojiH / 80 * 74, bitmojiH / 80 * 22, bitmojiH / 80 * 17, 92, 269);//left ear
+                    arc(bitmojiX + bitmojiH / 80 * 109, bitmojiY + bitmojiH / 80 * 74, bitmojiH / 80 * 22, bitmojiH / 80 * 17, 273, 450);//right ear
+                    fill(209, 156, 113); //head
+                    ellipse(bitmojiX +bitmojiH / 80 * 80, bitmojiY + bitmojiH / 80 * 74, bitmojiH / 80 * 70,bitmojiH / 80 *  80); 
+                    noStroke();
+                    arc(bitmojiX +bitmojiH / 80 *  80, bitmojiY + bitmojiH / 80 * 110,bitmojiH / 80 *  23, bitmojiH / 80 * 13,-0, 180);//chin
+           };
+           
+           var drawFace = function (bitmojiX, bitmojiY, bitmojiH){
+                    fill(77, 62, 42); //eyes
+                    ellipse(bitmojiX + bitmojiH / 80 * 93, bitmojiY + bitmojiH / 80 * 67, bitmojiH / 80 * 7,bitmojiH / 80 * 7); // Right Eye
+                    ellipse(bitmojiX + bitmojiH / 80 * 67, bitmojiY + bitmojiH / 80 * 67, bitmojiH / 80 * 7,bitmojiH / 80 * 7); // Left Eye
+                    quad(bitmojiX + bitmojiH / 80 * 44, bitmojiY + bitmojiH / 80 * 74, bitmojiX + bitmojiH / 80 * 46, bitmojiY + bitmojiH / 80 * 34,bitmojiX + bitmojiH / 80 *  84, bitmojiY + bitmojiH / 80 * 34,bitmojiX +bitmojiH / 80 * 57, bitmojiY + bitmojiH / 80 * 55); //hair
+                    quad(bitmojiX + bitmojiH / 80 * 115, bitmojiY +bitmojiH / 80 * 61, bitmojiX + bitmojiH / 80 * 95, bitmojiY + bitmojiH / 80 * 34, bitmojiX + bitmojiH / 80 * 84,  bitmojiY + bitmojiH / 80 * 34,bitmojiX + bitmojiH / 80 * 57,bitmojiY + bitmojiH / 80 * 55);
+                     strokeWeight(1);//mouth
+                    fill(255, 255, 255);
+                    arc(bitmojiX + bitmojiH / 80 * 80, bitmojiY + bitmojiH / 80 * 96, bitmojiH / 80 * 31, bitmojiH / 80 * 13, 0, 180);//bottom of mouth
+                    line(bitmojiX + bitmojiH / 80 * 95, bitmojiY + bitmojiH / 80 * 95, bitmojiX + bitmojiH / 80 * 64, bitmojiY + bitmojiH / 80 * 95);//top of mouth
+                    stroke(0, 0, 0); 
+                    noFill();//nose
+                    arc(bitmojiX + bitmojiH / 80 * 81, bitmojiY + bitmojiH / 80 * 82, bitmojiH / 80 * 20, bitmojiH / 80 * 14, 293, 447);
+           };
+           
+            var drawBody = function (bitmojiX, bitmojiY, bitmojiH){
+                
+                    fill(207, 154, 114);//neck
+                    quad (bitmojiX + bitmojiH / 80 * 95, bitmojiY +bitmojiH / 80 * 123,bitmojiX + bitmojiH / 80 *95, bitmojiY + bitmojiH / 80 *110,bitmojiX + bitmojiH / 80 *65, bitmojiY + bitmojiH / 80 *109,bitmojiX + bitmojiH / 80 *65, bitmojiY + bitmojiH / 80 *123);
+                    strokeWeight(1);
+                    stroke(0, 0, 0); //neck
+                    line(bitmojiX + bitmojiH / 80 *65, bitmojiY + bitmojiH / 80 *109,bitmojiX + bitmojiH / 80 *65, bitmojiY + bitmojiH / 80 *120); 
+                    line(bitmojiX + bitmojiH / 80 *95, bitmojiY + bitmojiH / 80 *109,bitmojiX + bitmojiH / 80 *95, bitmojiY + bitmojiH / 80 *123);
+                    fill(0, 0, 0);
+                    arc(bitmojiX + bitmojiH / 80 *80, bitmojiY + bitmojiH / 80 *137, bitmojiH / 80 *124, bitmojiH / 80 *31, 180, 360);//shoulder
+                    
+            };
+           
+            var drawHat = function (bitmojiX, bitmojiY, bitmojiH){
+                
+                    strokeWeight(3);
+                    stroke(0, 0, 0);// hat
+                    beginShape();
+                    fill(212, 212, 212);
+                    vertex (bitmojiX + bitmojiH / 80 *79, bitmojiY + bitmojiH / 80 *12);
+                    vertex (bitmojiX + bitmojiH / 80 *48, bitmojiY + bitmojiH / 80 *31);
+                    vertex(bitmojiX + bitmojiH / 80 *79, bitmojiY + bitmojiH / 80 *12);
+                    vertex(bitmojiX + bitmojiH / 80 *109, bitmojiY + bitmojiH / 80 *30);
+                    vertex(bitmojiX + bitmojiH / 80 *109,bitmojiY + bitmojiH / 80 * 50);
+                    vertex(bitmojiX + bitmojiH / 80 *49,bitmojiY + bitmojiH / 80 * 50);
+                    vertex(bitmojiX + bitmojiH / 80 *49,bitmojiY + bitmojiH / 80 * 30);
+                    endShape();
+                    
+                    strokeWeight(bitmojiH / 80 *1.5);
+                    fill(212, 212, 212);
+                    
+                    quad(bitmojiX + bitmojiH / 80 *42,bitmojiY + bitmojiH / 80 *58,bitmojiX + bitmojiH / 80 *42, bitmojiY + bitmojiH / 80 *42, bitmojiX + bitmojiH / 80 *48, bitmojiY + bitmojiH / 80 *32, bitmojiX + bitmojiH / 80 *48,bitmojiY + bitmojiH / 80 *52);
+                    
+                    strokeWeight(bitmojiH / 80 * 5 ); //brim of hat
+                    stroke(89, 89, 89);
+                    noFill();
+                    arc(bitmojiX + bitmojiH / 80 *80, bitmojiY + bitmojiH / 80 *63, bitmojiH / 80 *76, bitmojiH / 80 *30, -180, 0);
+                    stroke(94, 94, 94);
+                    fill(0, 0, 0);
+                    text("KP", bitmojiX + bitmojiH / 80 *72, bitmojiY + bitmojiH / 80 *31, bitmojiH / 80 *30,bitmojiH / 80 *50);
+                    strokeWeight(1);
+            };
+                drawBody(bitmojiX, bitmojiY, bitmojiH);
+                drawHead (bitmojiX, bitmojiY, bitmojiH);
+                drawFace(bitmojiX, bitmojiY, bitmojiH);
+                drawHat(bitmojiX, bitmojiY, bitmojiH);  
+            };
