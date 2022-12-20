@@ -137,28 +137,39 @@ var drawBitmojiKishan = function (bitmojiX, bitmojiY, bitmojiH){
                 drawHat(bitmojiX, bitmojiY, bitmojiH);  
             };
 
-var currentScene = 0; //0= splash screen, 1=game screen
+var currentScene = 0; //0=splash screen, 1=game screen, 2=How to screen
+var playerHand = [];
+var dealerHand = [];
+var pHandvalue = 0;
+var dHandValue = 0;
+
 
 
 //Kahn Button class
 var Button = function(config) {
     this.x = config.x || 0;
     this.y = config.y || 0;
-    this.width = config.width || 82;
+    this.width = config.width || 95;
     this.height = config.height || 50;
     this.label = config.label || "Click";
     this.bg = config.bg || color(229, 115, 235);
     this.onClick = config.onClick || function() {};
+    this.num = config.num || " ";
+    this.txtcolor = config.txtcolor || color(0, 0, 0);
 };
 
 Button.prototype.draw = function() {
     noStroke();
     fill(this.bg);
     rect(this.x, this.y, this.width, this.height, 5);
-    fill(0, 0, 0);
-    textSize(19);
+    fill(this.txtcolor);
+    textSize(13);
     textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+this.height/4);
+    text(this.label, this.x+10, this.y+this.height/3);
+    text(this.num, this.x+4, this.y+this.height/40);
+    text(this.num, this.x+56, this.y+70);
+
+    
 };
 
 Button.prototype.isMouseInside = function() {   //boolean true if mouse over button, else false
@@ -174,37 +185,180 @@ Button.prototype.handleMouseClick = function() {
     }
 };
 
+var firstDeal = function(){
+    for (var i = 0; i < 2; i++){
+     playerHand.push(round((random(1,11))));
+     dealerHand.push(round((random(1,11))));
+    }
+};
+
+//start button
 var startButton = new Button({
-    x: 162,
-    y: 141,
-    label: "START",
-    bg: color(14, 125, 25),
+    x: 307,
+    y: 132,
+    width: 72,
+    height: 94,
+    label: " START",
+    bg: color(255, 255, 255),
+    num: "A",
     onClick: function() {
+        firstDeal();
         currentScene = 1; //changes to gamescreen when clicked
     }
 });
 
+//How to Play button
+var howButton = new Button({
+    x: 308,
+    y: 256,
+    width: 72,
+    height: 94,
+    label: "HOW TO",
+    bg: color(255, 255, 255),
+    txtcolor: color(255, 0, 0),
+    num: "J",
+    onClick: function() {
+        currentScene = 2; //changes to howscreen when clicked
+    }
+});
+
+//hit button
+var hitButton = new Button({
+    x: 240,
+    y: 175,
+    label: "    HIT",
+    bg: color(201, 14, 14),
+    onClick: function() {
+        playerHand.push(round((random(1,11))));
+        dealerHand.push(round((random(1,11))));
+    }
+});
+
+//Stand button
+var standButton = new Button({
+    x: 80,
+    y: 175,
+    label: " STAND",
+    bg: color(201, 14, 14),
+    onClick: function() {
+    }
+});
+
 var splashScreen = function(){
-    background(66, 64, 66);
-    fill(212, 27, 27);
-    textSize(69);
-    text("BlackJack!", 39, 10);
+    background(47, 94, 9);
+    fill(255, 255, 255);
+    rect(0,0,400,101);
+    fill(0, 0, 0);
+    textSize(75);
+    text("Black", 18, 6);
+    fill(255, 0, 0);
+    text("Jack!", 204, 6);
     fill(0, 0, 0);
     textSize(15);
-    drawBitmojiIlanna(136,302,100);
+    drawBitmojiIlanna(95,237,87);
     noStroke();
-    drawBitmojiKishan(188,189,100);
+    drawBitmojiKishan(123,142,85);
     fill(226, 233, 235);
-    text("By: Ilanna Langton and Kishan Patel", 88, 373);
+    text("By: Ilanna Langton and Kishan Patel", 79, 373);
     startButton.draw();
+    howButton.draw();
+};
+
+var gameScreen = function(){
+    background(36, 69, 9);
+    //adding white rectangle on player's side to imitate a card
+    if (playerHand.length === 2){
+    for (var i = 0; i<160; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,277,75,115);
+    }
+    }
+    else if (playerHand.length === 3){
+        for (var i = 0; i<240; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,277,75,115);
+    }
+    }
+    else if (playerHand.length === 4){
+        for (var i = 0; i<320; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,277,75,115);
+    }
+    }
+    else if (playerHand.length === 5){
+        for (var i = 0; i<400; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,277,75,115);
+    }
+    }
+   //adding white rectangle on dealer's side to imitate a card
+    if (dealerHand.length === 2){
+    for (var i = 0; i<160; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,5,75,115);
+    }
+    }
+    else if (dealerHand.length === 3){
+        for (var i = 0; i<240; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,5,75,115);
+    }
+    }
+    else if (dealerHand.length === 4){
+        for (var i = 0; i<320; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,5,75,115);
+    }
+    }
+    else if (dealerHand.length === 5){
+        for (var i = 0; i<400; i+=80){
+        stroke(252, 252, 252);
+        fill (255, 255, 255);
+        rect(2+i,5,75,115);
+    }
+    }
+    
+    hitButton.draw();
+    standButton.draw();
+    fill(255, 0, 0);
+    textSize(40);
+    
+    for (var i = 0; i<dealerHand.length; i++){
+            text (dealerHand[i], 115/5+i*80, 40);
+}
+    for (var i = 0; i<playerHand.length; i++){
+            text (playerHand[i], 115/5+i*80, 312);
+}
+
+    
+};
+
+var howScreen = function(){
+    background(202, 204, 202);
+    fill(255, 0, 0);
+    textSize(60);
+    text("How To Play", 33, 17);
+    fill(0, 0, 0);
+    textSize(15);
+    text("To begin the player and dealer each get dealt two cards. The dealer has one card face up and one face down. Your hand has a total value based on the sum of the face value of your cards: (2 = 2, 5 = 5, A = 1 or 11, K Q J = 10). You play agaisnt the dealer and the goal of the game is to get your hands value as close to 21 without going over. You can do this by HITTING (adding a card to your hand from the deck) or STANDING (stopping the round when you no longer want to pick up more cards. ", 11, 110, 385, 333);
 };
 
 mouseClicked = function() { //adds corresponding button functions to current scene
     if (currentScene === 0)
     {
         startButton.handleMouseClick();
+        howButton.handleMouseClick();
     }
     if (currentScene === 1){
+        hitButton.handleMouseClick();
+        standButton.handleMouseClick();
     }
 };
 
@@ -214,6 +368,11 @@ draw = function() {
     }
         
     if (currentScene === 1){
-        background(199, 199, 199);
+        gameScreen();
+    }
+    
+    if (currentScene === 2){
+        howScreen();
     }
 };
+
